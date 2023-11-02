@@ -1,5 +1,6 @@
 package io.jenkins.plugins.appcenter.task.internal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.FilePath;
 import hudson.model.TaskListener;
 import io.jenkins.plugins.appcenter.AppCenterException;
@@ -11,8 +12,7 @@ import io.jenkins.plugins.appcenter.model.appcenter.ReleaseUpdateRequest;
 import io.jenkins.plugins.appcenter.task.request.UploadRequest;
 import org.apache.commons.lang.StringUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.IOException;
@@ -29,25 +29,25 @@ public final class DistributeResourceTask implements AppCenterTask<UploadRequest
 
     private static final long serialVersionUID = 1L;
 
-    @Nonnull
+    @NonNull
     private final TaskListener taskListener;
-    @Nonnull
+    @NonNull
     private final FilePath filePath;
-    @Nonnull
+    @NonNull
     private final AppCenterServiceFactory factory;
 
     @Inject
-    DistributeResourceTask(@Nonnull final TaskListener taskListener,
-                           @Nonnull final FilePath filePath,
-                           @Nonnull final AppCenterServiceFactory factory) {
+    DistributeResourceTask(@NonNull final TaskListener taskListener,
+                           @NonNull final FilePath filePath,
+                           @NonNull final AppCenterServiceFactory factory) {
         this.taskListener = taskListener;
         this.filePath = filePath;
         this.factory = factory;
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public CompletableFuture<UploadRequest> execute(@Nonnull UploadRequest request) {
+    public CompletableFuture<UploadRequest> execute(@NonNull UploadRequest request) {
         final Integer releaseId = requireNonNull(request.releaseId, "releaseId cannot be null");
 
         log("Distributing resource.");
@@ -79,8 +79,8 @@ public final class DistributeResourceTask implements AppCenterTask<UploadRequest
         return future;
     }
 
-    @Nonnull
-    private String parseReleaseNotes(@Nonnull UploadRequest request) {
+    @NonNull
+    private String parseReleaseNotes(@NonNull UploadRequest request) {
         final String releaseNotesFromFile = parseReleaseNotesFromFile(request.pathToReleaseNotes);
         final String separator = (!request.releaseNotes.isEmpty() && !releaseNotesFromFile.isEmpty()) ? "\n\n" : "";
         final String combinedReleaseNotes = request.releaseNotes + separator + releaseNotesFromFile;
@@ -88,8 +88,8 @@ public final class DistributeResourceTask implements AppCenterTask<UploadRequest
         return StringUtils.left(combinedReleaseNotes, 5000);
     }
 
-    @Nonnull
-    private String parseReleaseNotesFromFile(@Nonnull String pathToReleaseNotes) {
+    @NonNull
+    private String parseReleaseNotesFromFile(@NonNull String pathToReleaseNotes) {
         if (pathToReleaseNotes.isEmpty()) return "";
 
         final FilePath releaseNotesFilePath = filePath.child(pathToReleaseNotes);
@@ -103,7 +103,7 @@ public final class DistributeResourceTask implements AppCenterTask<UploadRequest
     }
 
     @Nullable
-    private BuildInfo createBuildInfo(@Nonnull UploadRequest request) {
+    private BuildInfo createBuildInfo(@NonNull UploadRequest request) {
         if (request.branchName == null && request.commitHash == null) return null;
         return new BuildInfo(request.branchName, request.commitHash, null);
     }

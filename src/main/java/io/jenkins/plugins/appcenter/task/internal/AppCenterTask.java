@@ -1,6 +1,7 @@
 package io.jenkins.plugins.appcenter.task.internal;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.io.Serializable;
 import java.util.concurrent.CompletableFuture;
 
@@ -16,6 +17,6 @@ public interface AppCenterTask<T> extends Serializable {
      * @param request T: Request
      * @return CompletableFuture: An expectation of a result of type T
      */
-    @Nonnull
-    CompletableFuture<T> execute(@Nonnull T request);
+    @NonNull
+    CompletableFuture<T> execute(@NonNull T request);
 }

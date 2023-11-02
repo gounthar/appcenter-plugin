@@ -1,5 +1,6 @@
 package io.jenkins.plugins.appcenter.task.internal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.model.TaskListener;
 import io.jenkins.plugins.appcenter.AppCenterException;
 import io.jenkins.plugins.appcenter.AppCenterLogger;
@@ -7,7 +8,6 @@ import io.jenkins.plugins.appcenter.api.AppCenterServiceFactory;
 import io.jenkins.plugins.appcenter.model.appcenter.SymbolUploadEndRequest;
 import io.jenkins.plugins.appcenter.task.request.UploadRequest;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.PrintStream;
@@ -20,21 +20,21 @@ public final class FinishReleaseTask implements AppCenterTask<UploadRequest>, Ap
 
     private static final long serialVersionUID = 1L;
 
-    @Nonnull
+    @NonNull
     private final TaskListener taskListener;
-    @Nonnull
+    @NonNull
     private final AppCenterServiceFactory factory;
 
     @Inject
-    FinishReleaseTask(@Nonnull final TaskListener taskListener,
-                      @Nonnull final AppCenterServiceFactory factory) {
+    FinishReleaseTask(@NonNull final TaskListener taskListener,
+                      @NonNull final AppCenterServiceFactory factory) {
         this.taskListener = taskListener;
         this.factory = factory;
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public CompletableFuture<UploadRequest> execute(@Nonnull UploadRequest request) {
+    public CompletableFuture<UploadRequest> execute(@NonNull UploadRequest request) {
 
 
         if (request.symbolUploadId == null) {
@@ -45,8 +45,8 @@ public final class FinishReleaseTask implements AppCenterTask<UploadRequest>, Ap
         }
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> finishRelease(@Nonnull UploadRequest request) {
+    @NonNull
+    private CompletableFuture<UploadRequest> finishRelease(@NonNull UploadRequest request) {
         final String uploadDomain = requireNonNull(request.uploadDomain, "uploadDomain cannot be null");
         final String packageAssetId = requireNonNull(request.packageAssetId, "packageAssetId cannot be null");
         final String token = requireNonNull(request.token, "token cannot be null");
@@ -72,13 +72,13 @@ public final class FinishReleaseTask implements AppCenterTask<UploadRequest>, Ap
         return future;
     }
 
-    @Nonnull
-    private String getUrl(@Nonnull String uploadDomain, @Nonnull String packageAssetId, @Nonnull String token) {
+    @NonNull
+    private String getUrl(@NonNull String uploadDomain, @NonNull String packageAssetId, @NonNull String token) {
         return String.format("%1$s/upload/finished/%2$s?token=%3$s", uploadDomain, packageAssetId, token);
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> finishSymbolRelease(@Nonnull UploadRequest request) {
+    @NonNull
+    private CompletableFuture<UploadRequest> finishSymbolRelease(@NonNull UploadRequest request) {
         final String symbolUploadId = requireNonNull(request.symbolUploadId, "symbolUploadId cannot be null");
 
         log("Finishing symbol release.");

@@ -1,13 +1,14 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.Objects;
 
 public final class UpdateReleaseUploadRequest {
-    @Nonnull
+    @NonNull
     public final StatusEnum upload_status;
 
-    public UpdateReleaseUploadRequest(@Nonnull StatusEnum upload_status) {
+    public UpdateReleaseUploadRequest(@NonNull StatusEnum upload_status) {
         this.upload_status = upload_status;
     }
 

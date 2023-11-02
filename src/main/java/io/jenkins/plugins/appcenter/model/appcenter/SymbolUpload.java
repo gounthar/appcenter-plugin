@@ -1,24 +1,25 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 
 public final class SymbolUpload {
-    @Nonnull
+    @NonNull
     public final String symbol_upload_id;
 
-    @Nonnull
+    @NonNull
     public final String app_id;
 
     @Nullable
     public final SymbolUploadUserInfo user;
 
-    @Nonnull
+    @NonNull
     public final StatusEnum status;
 
-    @Nonnull
+    @NonNull
     public final SymbolTypeEnum symbol_type;
 
     @Nullable
@@ -36,7 +37,7 @@ public final class SymbolUpload {
     @Nullable
     public final String timestamp;
 
-    public SymbolUpload(@Nonnull String symbolUploadId, @Nonnull String appId, @Nullable SymbolUploadUserInfo user, @Nonnull StatusEnum status, @Nonnull SymbolTypeEnum symbolType, @Nullable List<UploadedSymbolInfo> symbolsUploaded, @Nullable OriginEnum origin, @Nullable String fileName, @Nullable Integer fileSize, @Nullable String timestamp) {
+    public SymbolUpload(@NonNull String symbolUploadId, @NonNull String appId, @Nullable SymbolUploadUserInfo user, @NonNull StatusEnum status, @NonNull SymbolTypeEnum symbolType, @Nullable List<UploadedSymbolInfo> symbolsUploaded, @Nullable OriginEnum origin, @Nullable String fileName, @Nullable Integer fileSize, @Nullable String timestamp) {
         this.symbol_upload_id = symbolUploadId;
         this.app_id = appId;
         this.user = user;

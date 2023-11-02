@@ -1,6 +1,6 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 

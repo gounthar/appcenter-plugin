@@ -1,13 +1,14 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.Objects;
 
 public final class SymbolUploadEndRequest {
-    @Nonnull
+    @NonNull
     public final StatusEnum status;
 
-    public SymbolUploadEndRequest(@Nonnull StatusEnum status) {
+    public SymbolUploadEndRequest(@NonNull StatusEnum status) {
         this.status = status;
     }
 

@@ -9,7 +9,7 @@ import io.jenkins.plugins.appcenter.AppCenterRecorder;
 import io.jenkins.plugins.appcenter.task.UploadTask;
 import jenkins.model.Jenkins;
 
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import javax.inject.Named;
 import javax.inject.Singleton;
 

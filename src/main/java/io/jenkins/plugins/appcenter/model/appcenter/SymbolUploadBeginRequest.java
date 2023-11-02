@@ -1,7 +1,8 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ public final class SymbolUploadBeginRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Nonnull
+    @NonNull
     public final SymbolTypeEnum symbol_type;
     @Nullable
     public final String client_callback;
@@ -20,7 +21,7 @@ public final class SymbolUploadBeginRequest implements Serializable {
     @Nullable
     public final String version;
 
-    public SymbolUploadBeginRequest(@Nonnull SymbolTypeEnum symbolTypeEnum, @Nullable String clientCallback, @Nullable String fileName, @Nullable String build, @Nullable String version) {
+    public SymbolUploadBeginRequest(@NonNull SymbolTypeEnum symbolTypeEnum, @Nullable String clientCallback, @Nullable String fileName, @Nullable String build, @Nullable String version) {
         this.symbol_type = symbolTypeEnum;
         this.client_callback = clientCallback;
         this.file_name = fileName;

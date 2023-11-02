@@ -1,27 +1,26 @@
 package io.jenkins.plugins.appcenter.util;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-
-import javax.annotation.Nonnull;
 
 import static java.net.HttpURLConnection.*;
 
 public class MockWebServerUtil {
 
-    public static void enqueueSuccess(final @Nonnull MockWebServer mockWebServer) {
+    public static void enqueueSuccess(final @NonNull MockWebServer mockWebServer) {
         enqueueSuccess(mockWebServer, mockWebServer);
     }
 
-    public static void enqueueUploadViaProxy(final @Nonnull MockWebServer mockWebServer, final @Nonnull MockWebServer proxyWebServer) {
+    public static void enqueueUploadViaProxy(final @NonNull MockWebServer mockWebServer, final @NonNull MockWebServer proxyWebServer) {
         enqueueSuccess(mockWebServer, proxyWebServer);
     }
 
-    public static void enqueueAppCenterViaProxy(final @Nonnull MockWebServer mockWebServer, final @Nonnull MockWebServer proxyWebServer) {
+    public static void enqueueAppCenterViaProxy(final @NonNull MockWebServer mockWebServer, final @NonNull MockWebServer proxyWebServer) {
         enqueueSuccess(proxyWebServer, mockWebServer);
     }
 
-    private static void enqueueSuccess(final @Nonnull MockWebServer mockAppCenterServer, final @Nonnull MockWebServer mockUploadServer) {
+    private static void enqueueSuccess(final @NonNull MockWebServer mockAppCenterServer, final @NonNull MockWebServer mockUploadServer) {
         // Create upload resource for app
         mockAppCenterServer.enqueue(new MockResponse().setResponseCode(HTTP_CREATED).setBody("{\n" +
             "  \"id\": \"string\",\n" +
@@ -62,7 +61,7 @@ public class MockWebServerUtil {
             "}"));
     }
 
-    public static void enqueueSuccessWithSymbols(final @Nonnull MockWebServer mockAppCenterServer) {
+    public static void enqueueSuccessWithSymbols(final @NonNull MockWebServer mockAppCenterServer) {
         // Create upload resource for app
         mockAppCenterServer.enqueue(new MockResponse().setResponseCode(HTTP_CREATED).setBody("{\n" +
             "  \"id\": \"string\",\n" +
@@ -135,11 +134,11 @@ public class MockWebServerUtil {
             "}"));
     }
 
-    public static void enqueueFailure(final @Nonnull MockWebServer mockWebServer) {
+    public static void enqueueFailure(final @NonNull MockWebServer mockWebServer) {
         mockWebServer.enqueue(new MockResponse().setResponseCode(HTTP_INTERNAL_ERROR));
     }
 
-    public static void enqueueProxyAuthRequired(final @Nonnull MockWebServer proxyWebServer) {
+    public static void enqueueProxyAuthRequired(final @NonNull MockWebServer proxyWebServer) {
         proxyWebServer.enqueue(new MockResponse().setResponseCode(HTTP_PROXY_AUTH));
     }
 }

@@ -1,5 +1,6 @@
 package io.jenkins.plugins.appcenter.task.internal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.model.TaskListener;
 import io.jenkins.plugins.appcenter.AppCenterException;
 import io.jenkins.plugins.appcenter.AppCenterLogger;
@@ -11,7 +12,6 @@ import okio.Buffer;
 import okio.BufferedSource;
 import okio.Okio;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.File;
@@ -27,25 +27,25 @@ public final class UploadAppToResourceTask implements AppCenterTask<UploadReques
     private static final long serialVersionUID = 1L;
     private static final int MAX_NON_CHUNKED_UPLOAD_SIZE = (1024 * 1024) * 256; // 256 MB in bytes
 
-    @Nonnull
+    @NonNull
     private final TaskListener taskListener;
-    @Nonnull
+    @NonNull
     private final AppCenterServiceFactory factory;
-    @Nonnull
+    @NonNull
     private final RemoteFileUtils remoteFileUtils;
 
     @Inject
-    UploadAppToResourceTask(@Nonnull final TaskListener taskListener,
-                            @Nonnull final AppCenterServiceFactory factory,
-                            @Nonnull final RemoteFileUtils remoteFileUtils) {
+    UploadAppToResourceTask(@NonNull final TaskListener taskListener,
+                            @NonNull final AppCenterServiceFactory factory,
+                            @NonNull final RemoteFileUtils remoteFileUtils) {
         this.taskListener = taskListener;
         this.factory = factory;
         this.remoteFileUtils = remoteFileUtils;
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public CompletableFuture<UploadRequest> execute(@Nonnull UploadRequest request) {
+    public CompletableFuture<UploadRequest> execute(@NonNull UploadRequest request) {
         if (request.symbolUploadUrl == null) {
             return uploadApp(request);
         } else {
@@ -54,8 +54,8 @@ public final class UploadAppToResourceTask implements AppCenterTask<UploadReques
         }
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> uploadApp(@Nonnull UploadRequest request) {
+    @NonNull
+    private CompletableFuture<UploadRequest> uploadApp(@NonNull UploadRequest request) {
         requireNonNull(request.uploadDomain, "uploadDomain cannot be null");
         requireNonNull(request.packageAssetId, "packageAssetId cannot be null");
         requireNonNull(request.token, "token cannot be null");
@@ -72,7 +72,7 @@ public final class UploadAppToResourceTask implements AppCenterTask<UploadReques
         return future;
     }
 
-    private void calculateChunks(@Nonnull UploadRequest request, int offset, int chunkSize, int blockNumber, @Nonnull CompletableFuture<UploadRequest> future) {
+    private void calculateChunks(@NonNull UploadRequest request, int offset, int chunkSize, int blockNumber, @NonNull CompletableFuture<UploadRequest> future) {
         // TODO: Retrofit (via OkHttp) is supposed to be able to do this natively if you set the contentLength to -1. Investigate
         final String url = getUrl(request);
         final File file = remoteFileUtils.getRemoteFile(request.pathToApp);
@@ -92,7 +92,7 @@ public final class UploadAppToResourceTask implements AppCenterTask<UploadReques
         }
     }
 
-    private void upload(@Nonnull UploadRequest request, int offset, int chunkSize, @Nonnull String url, @Nonnull RequestBody requestFile, int blockNumber, int noOfBlocks, @Nonnull CompletableFuture<UploadRequest> future) {
+    private void upload(@NonNull UploadRequest request, int offset, int chunkSize, @NonNull String url, @NonNull RequestBody requestFile, int blockNumber, int noOfBlocks, @NonNull CompletableFuture<UploadRequest> future) {
         factory.createAppCenterService()
             .uploadApp(url + "&block_number=" + blockNumber, requestFile)
             .whenComplete((responseBody, throwable) -> {
@@ -111,13 +111,13 @@ public final class UploadAppToResourceTask implements AppCenterTask<UploadReques
             });
     }
 
-    @Nonnull
-    private String getUrl(@Nonnull UploadRequest request) {
+    @NonNull
+    private String getUrl(@NonNull UploadRequest request) {
         return String.format("%1$s/upload/upload_chunk/%2$s?token=%3$s", request.uploadDomain, request.packageAssetId, request.token);
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> uploadSymbols(@Nonnull UploadRequest request) {
+    @NonNull
+    private CompletableFuture<UploadRequest> uploadSymbols(@NonNull UploadRequest request) {
         final String pathToDebugSymbols = request.pathToDebugSymbols;
         final String symbolUploadUrl = requireNonNull(request.symbolUploadUrl, "symbolUploadUrl cannot be null");
 
@@ -129,8 +129,8 @@ public final class UploadAppToResourceTask implements AppCenterTask<UploadReques
         }
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> uploadSymbolsChunked(@Nonnull UploadRequest request, @Nonnull String symbolUploadUrl, @Nonnull File file) {
+    @NonNull
+    private CompletableFuture<UploadRequest> uploadSymbolsChunked(@NonNull UploadRequest request, @NonNull String symbolUploadUrl, @NonNull File file) {
         log("Uploading symbols to resource chunked.");
 
         final CompletableFuture<UploadRequest> future = new CompletableFuture<>();
@@ -149,8 +149,8 @@ public final class UploadAppToResourceTask implements AppCenterTask<UploadReques
         return future;
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> uploadSymbolsComplete(@Nonnull UploadRequest request, @Nonnull String symbolUploadUrl, @Nonnull File file) {
+    @NonNull
+    private CompletableFuture<UploadRequest> uploadSymbolsComplete(@NonNull UploadRequest request, @NonNull String symbolUploadUrl, @NonNull File file) {
         log("Uploading all symbols at once to resource.");
 
         final CompletableFuture<UploadRequest> future = new CompletableFuture<>();

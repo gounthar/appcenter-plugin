@@ -1,16 +1,17 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 
 public final class ReleaseUpdateError {
 
-    @Nonnull
+    @NonNull
     public final CodeEnum code;
 
-    @Nonnull
+    @NonNull
     public final String message;
 
     @Nullable
@@ -22,7 +23,7 @@ public final class ReleaseUpdateError {
     @Nullable
     public final List<DestinationError> destinations;
 
-    public ReleaseUpdateError(@Nonnull CodeEnum code, @Nonnull String message, @Nullable String releaseNotes, @Nullable Boolean mandatoryUpdate, @Nullable List<DestinationError> destinations) {
+    public ReleaseUpdateError(@NonNull CodeEnum code, @NonNull String message, @Nullable String releaseNotes, @Nullable Boolean mandatoryUpdate, @Nullable List<DestinationError> destinations) {
         this.code = code;
         this.message = message;
         this.release_notes = releaseNotes;

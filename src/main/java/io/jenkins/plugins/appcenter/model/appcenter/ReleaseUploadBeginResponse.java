@@ -1,21 +1,22 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.Objects;
 
 public final class ReleaseUploadBeginResponse {
-    @Nonnull
+    @NonNull
     public final String id;
-    @Nonnull
+    @NonNull
     public final String upload_domain;
-    @Nonnull
+    @NonNull
     public final String token;
-    @Nonnull
+    @NonNull
     public final String url_encoded_token;
-    @Nonnull
+    @NonNull
     public final String package_asset_id;
 
-    public ReleaseUploadBeginResponse(@Nonnull String id, @Nonnull String uploadDomain, @Nonnull String token, @Nonnull String urlEncodedToken, @Nonnull String packageAssetId) {
+    public ReleaseUploadBeginResponse(@NonNull String id, @NonNull String uploadDomain, @NonNull String token, @NonNull String urlEncodedToken, @NonNull String packageAssetId) {
         this.id = id;
         this.upload_domain = uploadDomain;
         this.token = token;

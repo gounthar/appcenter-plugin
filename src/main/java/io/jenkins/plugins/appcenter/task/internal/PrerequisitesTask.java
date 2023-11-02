@@ -1,5 +1,6 @@
 package io.jenkins.plugins.appcenter.task.internal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.FilePath;
 import hudson.model.TaskListener;
 import io.jenkins.plugins.appcenter.AppCenterException;
@@ -10,7 +11,6 @@ import io.jenkins.plugins.appcenter.task.request.UploadRequest;
 import io.jenkins.plugins.appcenter.util.AndroidParser;
 import io.jenkins.plugins.appcenter.util.ParserFactory;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.File;
@@ -27,30 +27,30 @@ public final class PrerequisitesTask implements AppCenterTask<UploadRequest>, Ap
 
     private static final long serialVersionUID = 1L;
 
-    @Nonnull
+    @NonNull
     private final TaskListener taskListener;
-    @Nonnull
+    @NonNull
     private final FilePath filePath;
-    @Nonnull
+    @NonNull
     private final ParserFactory parserFactory;
 
     @Inject
-    PrerequisitesTask(@Nonnull TaskListener taskListener, @Nonnull final FilePath filePath, @Nonnull final ParserFactory parserFactory) {
+    PrerequisitesTask(@NonNull TaskListener taskListener, @NonNull final FilePath filePath, @NonNull final ParserFactory parserFactory) {
         this.taskListener = taskListener;
         this.filePath = filePath;
         this.parserFactory = parserFactory;
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public CompletableFuture<UploadRequest> execute(@Nonnull UploadRequest request) {
+    public CompletableFuture<UploadRequest> execute(@NonNull UploadRequest request) {
         return checkFileExists(request)
             .thenCompose(this::checkSymbolsExist)
             .thenCompose(this::checkReleaseNotesExist);
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> checkFileExists(@Nonnull UploadRequest request) {
+    @NonNull
+    private CompletableFuture<UploadRequest> checkFileExists(@NonNull UploadRequest request) {
         final CompletableFuture<UploadRequest> future = new CompletableFuture<>();
 
         try {
@@ -77,8 +77,8 @@ public final class PrerequisitesTask implements AppCenterTask<UploadRequest>, Ap
         return future;
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> checkSymbolsExist(@Nonnull UploadRequest request) {
+    @NonNull
+    private CompletableFuture<UploadRequest> checkSymbolsExist(@NonNull UploadRequest request) {
         final CompletableFuture<UploadRequest> future = new CompletableFuture<>();
 
         if (request.pathToDebugSymbols.trim().isEmpty()) {
@@ -111,16 +111,16 @@ public final class PrerequisitesTask implements AppCenterTask<UploadRequest>, Ap
         return future;
     }
 
-    @Nonnull
-    private SymbolUploadBeginRequest symbolUploadRequest(@Nonnull String pathToApp, @Nonnull String pathToDebugSymbols) throws IllegalStateException, IOException {
+    @NonNull
+    private SymbolUploadBeginRequest symbolUploadRequest(@NonNull String pathToApp, @NonNull String pathToDebugSymbols) throws IllegalStateException, IOException {
         if (pathToApp.endsWith(".apk")) return androidSymbolsUpload(pathToApp, pathToDebugSymbols);
         if (pathToApp.endsWith(".ipa") || pathToApp.endsWith(".app.zip") || pathToApp.endsWith(".pkg") || pathToApp.endsWith(".dmg")) return appleSymbolsUpload(pathToApp);
 
         throw new IllegalStateException("Unable to determine application type and therefore debug symbol type");
     }
 
-    @Nonnull
-    private SymbolUploadBeginRequest androidSymbolsUpload(@Nonnull String pathToApp, @Nonnull String pathToDebugSymbols) throws IOException {
+    @NonNull
+    private SymbolUploadBeginRequest androidSymbolsUpload(@NonNull String pathToApp, @NonNull String pathToDebugSymbols) throws IOException {
         final File apkFile = new File(filePath.child(pathToApp).getRemote());
         final File debugSymbolsFile = new File(filePath.child(pathToDebugSymbols).getRemote());
         final AndroidParser androidParser = parserFactory.androidParser(apkFile);
@@ -132,23 +132,23 @@ public final class PrerequisitesTask implements AppCenterTask<UploadRequest>, Ap
         return new SymbolUploadBeginRequest(symbolType, null, fileName, versionCode, versionName);
     }
 
-    @Nonnull
-    private SymbolTypeEnum getAndroidSymbolTypeEnum(@Nonnull String pathToDebugSymbols) {
+    @NonNull
+    private SymbolTypeEnum getAndroidSymbolTypeEnum(@NonNull String pathToDebugSymbols) {
         if (pathToDebugSymbols.endsWith(".txt")) return AndroidProguard;
         if (pathToDebugSymbols.endsWith(".zip")) return Breakpad;
 
         throw new IllegalStateException("Unable to determine Android debug symbol type");
     }
 
-    @Nonnull
-    private SymbolUploadBeginRequest appleSymbolsUpload(@Nonnull String pathToApp) {
+    @NonNull
+    private SymbolUploadBeginRequest appleSymbolsUpload(@NonNull String pathToApp) {
         final File file = new File(filePath.child(pathToApp).getRemote());
 
         return new SymbolUploadBeginRequest(Apple, null, file.getName(), "", "");
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> checkReleaseNotesExist(@Nonnull UploadRequest request) {
+    @NonNull
+    private CompletableFuture<UploadRequest> checkReleaseNotesExist(@NonNull UploadRequest request) {
         final CompletableFuture<UploadRequest> future = new CompletableFuture<>();
 
         if (request.pathToReleaseNotes.trim().isEmpty()) {

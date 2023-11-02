@@ -1,5 +1,6 @@
 package io.jenkins.plugins.appcenter.task.internal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.model.TaskListener;
 import io.jenkins.plugins.appcenter.AppCenterException;
 import io.jenkins.plugins.appcenter.AppCenterLogger;
@@ -7,7 +8,6 @@ import io.jenkins.plugins.appcenter.api.AppCenterServiceFactory;
 import io.jenkins.plugins.appcenter.model.appcenter.UpdateReleaseUploadRequest;
 import io.jenkins.plugins.appcenter.task.request.UploadRequest;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.PrintStream;
@@ -20,26 +20,26 @@ public final class UpdateReleaseTask implements AppCenterTask<UploadRequest>, Ap
 
     private static final long serialVersionUID = 1L;
 
-    @Nonnull
+    @NonNull
     private final TaskListener taskListener;
-    @Nonnull
+    @NonNull
     private final AppCenterServiceFactory factory;
 
     @Inject
-    UpdateReleaseTask(@Nonnull final TaskListener taskListener,
-                      @Nonnull final AppCenterServiceFactory factory) {
+    UpdateReleaseTask(@NonNull final TaskListener taskListener,
+                      @NonNull final AppCenterServiceFactory factory) {
         this.taskListener = taskListener;
         this.factory = factory;
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public CompletableFuture<UploadRequest> execute(@Nonnull UploadRequest request) {
+    public CompletableFuture<UploadRequest> execute(@NonNull UploadRequest request) {
         return updateRelease(request);
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> updateRelease(@Nonnull UploadRequest request) {
+    @NonNull
+    private CompletableFuture<UploadRequest> updateRelease(@NonNull UploadRequest request) {
         final String uploadId = requireNonNull(request.uploadId, "uploadId cannot be null");
 
         log("Updating release.");

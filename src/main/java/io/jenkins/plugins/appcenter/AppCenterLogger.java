@@ -1,10 +1,10 @@
 package io.jenkins.plugins.appcenter;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 import retrofit2.Response;
 
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.PrintStream;
 
@@ -18,12 +18,12 @@ public interface AppCenterLogger {
         getLogger().println(message);
     }
 
-    default AppCenterException logFailure(@Nonnull String message) {
+    default AppCenterException logFailure(@NonNull String message) {
         requireNonNull(message, "message cannot be null.");
         return new AppCenterException(message);
     }
 
-    default AppCenterException logFailure(@Nonnull String message, @Nonnull Throwable throwable) {
+    default AppCenterException logFailure(@NonNull String message, @NonNull Throwable throwable) {
         requireNonNull(message, "message cannot be null.");
         requireNonNull(throwable, "throwable cannot be null.");
 

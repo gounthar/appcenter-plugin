@@ -1,17 +1,18 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.Objects;
 
 public final class ErrorDetails {
 
-    @Nonnull
+    @NonNull
     public final CodeEnum code;
 
-    @Nonnull
+    @NonNull
     public final String message;
 
-    public ErrorDetails(@Nonnull CodeEnum code, @Nonnull String message) {
+    public ErrorDetails(@NonNull CodeEnum code, @NonNull String message) {
         this.code = code;
         this.message = message;
     }

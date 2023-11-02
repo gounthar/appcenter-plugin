@@ -4,6 +4,7 @@ import com.azure.core.http.okhttp.OkHttpAsyncHttpClientBuilder;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobClientBuilder;
 import com.google.common.net.HttpHeaders;
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.ProxyConfiguration;
 import hudson.util.Secret;
 import okhttp3.*;
@@ -11,8 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -30,15 +30,15 @@ public final class AppCenterServiceFactory implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final int timeoutSeconds = 60;
 
-    @Nonnull
+    @NonNull
     private final Secret apiToken;
-    @Nonnull
+    @NonNull
     private final String baseUrl;
     @Nullable
     private final ProxyConfiguration proxyConfiguration;
 
     @Inject
-    public AppCenterServiceFactory(@Nonnull Secret apiToken, @Nullable @Named("baseUrl") String baseUrl, @Nullable ProxyConfiguration proxyConfiguration) {
+    public AppCenterServiceFactory(@NonNull Secret apiToken, @Nullable @Named("baseUrl") String baseUrl, @Nullable ProxyConfiguration proxyConfiguration) {
         this.apiToken = apiToken;
         this.baseUrl = baseUrl != null ? baseUrl : APPCENTER_BASE_URL;
         this.proxyConfiguration = proxyConfiguration;
@@ -73,7 +73,7 @@ public final class AppCenterServiceFactory implements Serializable {
         return retrofit.create(AppCenterService.class);
     }
 
-    public UploadService createUploadService(@Nonnull final String uploadUrl) {
+    public UploadService createUploadService(@NonNull final String uploadUrl) {
         final HttpUrl httpUploadUrl = HttpUrl.get(uploadUrl);
         final HttpUrl baseUrl = HttpUrl.get(String.format("%1$s://%2$s/", httpUploadUrl.scheme(), httpUploadUrl.host()));
 
@@ -86,7 +86,7 @@ public final class AppCenterServiceFactory implements Serializable {
         return retrofit.create(UploadService.class);
     }
 
-    public BlobClient createBlobUploadService(@Nonnull final String uploadUrl) {
+    public BlobClient createBlobUploadService(@NonNull final String uploadUrl) {
         final HttpUrl httpUploadUrl = HttpUrl.get(uploadUrl);
         final OkHttpAsyncHttpClientBuilder okHttpAsyncHttpClientBuilder = new OkHttpAsyncHttpClientBuilder(createHttpClientBuilder(httpUploadUrl).build());
 
@@ -96,8 +96,8 @@ public final class AppCenterServiceFactory implements Serializable {
             .buildClient();
     }
 
-    @Nonnull
-    private String workaroundAzureSdkForJava15827(@Nonnull HttpUrl httpUploadUrl) {
+    @NonNull
+    private String workaroundAzureSdkForJava15827(@NonNull HttpUrl httpUploadUrl) {
         // Workaround for bug in Azure Blob Storage, as AppCenter returns the upload URL with a port attached.
         // See https://github.com/Azure/azure-sdk-for-java/issues/15827
 
@@ -106,7 +106,7 @@ public final class AppCenterServiceFactory implements Serializable {
         return httpUploadUrl.toString();
     }
 
-    private OkHttpClient.Builder createHttpClientBuilder(@Nonnull final HttpUrl httpUrl) {
+    private OkHttpClient.Builder createHttpClientBuilder(@NonNull final HttpUrl httpUrl) {
         final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
 
@@ -120,7 +120,7 @@ public final class AppCenterServiceFactory implements Serializable {
     }
 
     private Proxy setProxy(@Nullable final ProxyConfiguration proxyConfiguration,
-                           @Nonnull final String host) {
+                           @NonNull final String host) {
         if (proxyConfiguration != null) {
             return proxyConfiguration.createProxy(host);
         } else {

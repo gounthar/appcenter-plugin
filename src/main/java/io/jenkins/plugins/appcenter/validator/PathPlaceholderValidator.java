@@ -1,12 +1,13 @@
 package io.jenkins.plugins.appcenter.validator;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 public final class PathPlaceholderValidator extends Validator {
 
-    @Nonnull
+    @NonNull
     @Override
     protected Predicate<String> predicate() {
         return Pattern.compile("^\\$\\{[^}]+}")

@@ -1,12 +1,12 @@
 package io.jenkins.plugins.appcenter.task.internal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.model.TaskListener;
 import io.jenkins.plugins.appcenter.AppCenterException;
 import io.jenkins.plugins.appcenter.AppCenterLogger;
 import io.jenkins.plugins.appcenter.api.AppCenterServiceFactory;
 import io.jenkins.plugins.appcenter.task.request.UploadRequest;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.PrintStream;
@@ -20,26 +20,26 @@ public final class PollForReleaseTask implements AppCenterTask<UploadRequest>, A
 
     private static final long serialVersionUID = 1L;
 
-    @Nonnull
+    @NonNull
     private final TaskListener taskListener;
-    @Nonnull
+    @NonNull
     private final AppCenterServiceFactory factory;
 
     @Inject
-    PollForReleaseTask(@Nonnull final TaskListener taskListener,
-                       @Nonnull final AppCenterServiceFactory factory) {
+    PollForReleaseTask(@NonNull final TaskListener taskListener,
+                       @NonNull final AppCenterServiceFactory factory) {
         this.taskListener = taskListener;
         this.factory = factory;
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public CompletableFuture<UploadRequest> execute(@Nonnull UploadRequest request) {
+    public CompletableFuture<UploadRequest> execute(@NonNull UploadRequest request) {
         return pollForRelease(request);
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> pollForRelease(@Nonnull UploadRequest request) {
+    @NonNull
+    private CompletableFuture<UploadRequest> pollForRelease(@NonNull UploadRequest request) {
         final String uploadId = requireNonNull(request.uploadId, "uploadId cannot be null");
 
         log("Polling for app release.");
@@ -51,11 +51,11 @@ public final class PollForReleaseTask implements AppCenterTask<UploadRequest>, A
         return future;
     }
 
-    private void poll(@Nonnull UploadRequest request, @Nonnull String uploadId, @Nonnull CompletableFuture<UploadRequest> future) {
+    private void poll(@NonNull UploadRequest request, @NonNull String uploadId, @NonNull CompletableFuture<UploadRequest> future) {
         poll(request, uploadId, future, 0);
     }
 
-    private void poll(@Nonnull UploadRequest request, @Nonnull String uploadId, @Nonnull CompletableFuture<UploadRequest> future, int timeoutExponent) {
+    private void poll(@NonNull UploadRequest request, @NonNull String uploadId, @NonNull CompletableFuture<UploadRequest> future, int timeoutExponent) {
         factory.createAppCenterService()
             .pollForRelease(request.ownerName, request.appName, uploadId)
             .whenComplete((pollForReleaseResponse, throwable) -> {
@@ -86,7 +86,7 @@ public final class PollForReleaseTask implements AppCenterTask<UploadRequest>, A
             });
     }
 
-    private void retryPolling(@Nonnull UploadRequest request, @Nonnull String uploadId, @Nonnull CompletableFuture<UploadRequest> future, int timeoutExponent) {
+    private void retryPolling(@NonNull UploadRequest request, @NonNull String uploadId, @NonNull CompletableFuture<UploadRequest> future, int timeoutExponent) {
         try {
             final double pow = Math.pow(2, timeoutExponent);
             final long timeout = Double.valueOf(pow).longValue();

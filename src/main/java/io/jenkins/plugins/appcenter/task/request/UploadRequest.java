@@ -1,9 +1,9 @@
 package io.jenkins.plugins.appcenter.task.request;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import io.jenkins.plugins.appcenter.model.appcenter.SymbolUploadBeginRequest;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,23 +11,23 @@ public final class UploadRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Nonnull
+    @NonNull
     public final String ownerName;
-    @Nonnull
+    @NonNull
     public final String appName;
-    @Nonnull
+    @NonNull
     public final String pathToApp;
-    @Nonnull
+    @NonNull
     public final String destinationGroups;
-    @Nonnull
+    @NonNull
     public final String releaseNotes;
-    @Nonnull
+    @NonNull
     public final String pathToReleaseNotes;
     public final boolean notifyTesters;
     public final boolean mandatoryUpdate;
-    @Nonnull
+    @NonNull
     public final String buildVersion;
-    @Nonnull
+    @NonNull
     public final String pathToDebugSymbols;
 
     // Properties above this line are expected to be set by plugin configuration before a run they should be nonnull.
@@ -129,23 +129,23 @@ public final class UploadRequest implements Serializable {
 
     public static final class Builder {
 
-        @Nonnull
+        @NonNull
         private String ownerName;
-        @Nonnull
+        @NonNull
         private String appName;
-        @Nonnull
+        @NonNull
         private String pathToApp;
-        @Nonnull
+        @NonNull
         private String destinationGroups;
-        @Nonnull
+        @NonNull
         private String releaseNotes;
-        @Nonnull
+        @NonNull
         private String pathToReleaseNotes;
         private boolean notifyTesters;
         private boolean mandatoryUpdate;
-        @Nonnull
+        @NonNull
         private String buildVersion;
-        @Nonnull
+        @NonNull
         private String pathToDebugSymbols;
 
         // Expected to be nullable until they are added during UploadTask.
@@ -187,7 +187,7 @@ public final class UploadRequest implements Serializable {
             branchName = "";
         }
 
-        Builder(@Nonnull final UploadRequest uploadRequest) {
+        Builder(@NonNull final UploadRequest uploadRequest) {
             this.ownerName = uploadRequest.ownerName;
             this.appName = uploadRequest.appName;
             this.pathToApp = uploadRequest.pathToApp;
@@ -213,32 +213,32 @@ public final class UploadRequest implements Serializable {
             this.symbolUploadId = uploadRequest.symbolUploadId;
         }
 
-        public Builder setOwnerName(@Nonnull String ownerName) {
+        public Builder setOwnerName(@NonNull String ownerName) {
             this.ownerName = ownerName;
             return this;
         }
 
-        public Builder setAppName(@Nonnull String appName) {
+        public Builder setAppName(@NonNull String appName) {
             this.appName = appName;
             return this;
         }
 
-        public Builder setPathToApp(@Nonnull String pathToApp) {
+        public Builder setPathToApp(@NonNull String pathToApp) {
             this.pathToApp = pathToApp;
             return this;
         }
 
-        public Builder setDestinationGroups(@Nonnull String destinationGroups) {
+        public Builder setDestinationGroups(@NonNull String destinationGroups) {
             this.destinationGroups = destinationGroups;
             return this;
         }
 
-        public Builder setReleaseNotes(@Nonnull String releaseNotes) {
+        public Builder setReleaseNotes(@NonNull String releaseNotes) {
             this.releaseNotes = releaseNotes;
             return this;
         }
 
-        public Builder setPathToReleaseNotes(@Nonnull String pathToReleaseNotes) {
+        public Builder setPathToReleaseNotes(@NonNull String pathToReleaseNotes) {
             this.pathToReleaseNotes = pathToReleaseNotes;
             return this;
         }
@@ -253,12 +253,12 @@ public final class UploadRequest implements Serializable {
             return this;
         }
 
-        public Builder setBuildVersion(@Nonnull String buildVersion) {
+        public Builder setBuildVersion(@NonNull String buildVersion) {
             this.buildVersion = buildVersion;
             return this;
         }
 
-        public Builder setPathToDebugSymbols(@Nonnull String pathToDebugSymbols) {
+        public Builder setPathToDebugSymbols(@NonNull String pathToDebugSymbols) {
             this.pathToDebugSymbols = pathToDebugSymbols;
             return this;
         }
@@ -266,27 +266,27 @@ public final class UploadRequest implements Serializable {
         // Properties above this line are expected to be set by plugin configuration before a run.
         // Properties below this line are expected to be set during a run as these values will come
         // from AppCenter during execution they should be nullable prior to being set.
-        public Builder setUploadId(@Nonnull String uploadId) {
+        public Builder setUploadId(@NonNull String uploadId) {
             this.uploadId = uploadId;
             return this;
         }
 
-        public Builder setUploadDomain(@Nonnull String uploadDomain) {
+        public Builder setUploadDomain(@NonNull String uploadDomain) {
             this.uploadDomain = uploadDomain;
             return this;
         }
 
-        public Builder setToken(@Nonnull String token) {
+        public Builder setToken(@NonNull String token) {
             this.token = token;
             return this;
         }
 
-        public Builder setPackageAssetId(@Nonnull String packageAssetId) {
+        public Builder setPackageAssetId(@NonNull String packageAssetId) {
             this.packageAssetId = packageAssetId;
             return this;
         }
 
-        public Builder setChunkSize(@Nonnull Integer chunkSize) {
+        public Builder setChunkSize(@NonNull Integer chunkSize) {
             this.chunkSize = chunkSize;
             return this;
         }
@@ -296,27 +296,27 @@ public final class UploadRequest implements Serializable {
             return this;
         }
 
-        public Builder setSymbolUploadRequest(@Nonnull SymbolUploadBeginRequest symbolUploadRequest) {
+        public Builder setSymbolUploadRequest(@NonNull SymbolUploadBeginRequest symbolUploadRequest) {
             this.symbolUploadRequest = symbolUploadRequest;
             return this;
         }
 
-        public Builder setSymbolUploadUrl(@Nonnull String symbolUploadUrl) {
+        public Builder setSymbolUploadUrl(@NonNull String symbolUploadUrl) {
             this.symbolUploadUrl = symbolUploadUrl;
             return this;
         }
 
-        public Builder setSymbolUploadId(@Nonnull String symbolUploadId) {
+        public Builder setSymbolUploadId(@NonNull String symbolUploadId) {
             this.symbolUploadId = symbolUploadId;
             return this;
         }
 
-        public Builder setCommitHash(@Nonnull String commitHash) {
+        public Builder setCommitHash(@NonNull String commitHash) {
             this.commitHash = commitHash;
             return this;
         }
 
-        public Builder setBranchName(@Nonnull String branchName) {
+        public Builder setBranchName(@NonNull String branchName) {
             this.branchName = branchName;
             return this;
         }

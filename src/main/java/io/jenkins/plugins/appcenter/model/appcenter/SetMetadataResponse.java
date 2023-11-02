@@ -1,13 +1,14 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.Objects;
 
 public final class SetMetadataResponse {
-    @Nonnull
+    @NonNull
     public final Integer chunk_size;
 
-    public SetMetadataResponse(@Nonnull Integer chunkSize) {
+    public SetMetadataResponse(@NonNull Integer chunkSize) {
         this.chunk_size = chunkSize;
     }
 

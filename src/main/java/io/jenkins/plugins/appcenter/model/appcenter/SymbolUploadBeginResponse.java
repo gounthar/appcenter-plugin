@@ -1,17 +1,18 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.Objects;
 
 public final class SymbolUploadBeginResponse {
-    @Nonnull
+    @NonNull
     public final String symbol_upload_id;
-    @Nonnull
+    @NonNull
     public final String upload_url;
-    @Nonnull
+    @NonNull
     public final String expiration_date;
 
-    public SymbolUploadBeginResponse(@Nonnull String symbolUploadId, @Nonnull String uploadUrl, @Nonnull String expirationDate) {
+    public SymbolUploadBeginResponse(@NonNull String symbolUploadId, @NonNull String uploadUrl, @NonNull String expirationDate) {
         this.symbol_upload_id = symbolUploadId;
         this.upload_url = uploadUrl;
         this.expiration_date = expirationDate;

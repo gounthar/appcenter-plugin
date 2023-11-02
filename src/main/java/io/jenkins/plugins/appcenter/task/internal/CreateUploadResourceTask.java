@@ -1,5 +1,6 @@
 package io.jenkins.plugins.appcenter.task.internal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.model.TaskListener;
 import io.jenkins.plugins.appcenter.AppCenterException;
 import io.jenkins.plugins.appcenter.AppCenterLogger;
@@ -8,7 +9,6 @@ import io.jenkins.plugins.appcenter.model.appcenter.ReleaseUploadBeginRequest;
 import io.jenkins.plugins.appcenter.model.appcenter.SymbolUploadBeginRequest;
 import io.jenkins.plugins.appcenter.task.request.UploadRequest;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.PrintStream;
@@ -21,21 +21,21 @@ public final class CreateUploadResourceTask implements AppCenterTask<UploadReque
 
     private static final long serialVersionUID = 1L;
 
-    @Nonnull
+    @NonNull
     private final TaskListener taskListener;
-    @Nonnull
+    @NonNull
     private final AppCenterServiceFactory factory;
 
     @Inject
-    CreateUploadResourceTask(@Nonnull final TaskListener taskListener,
-                             @Nonnull final AppCenterServiceFactory factory) {
+    CreateUploadResourceTask(@NonNull final TaskListener taskListener,
+                             @NonNull final AppCenterServiceFactory factory) {
         this.taskListener = taskListener;
         this.factory = factory;
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public CompletableFuture<UploadRequest> execute(@Nonnull UploadRequest request) {
+    public CompletableFuture<UploadRequest> execute(@NonNull UploadRequest request) {
         if (request.symbolUploadRequest == null) {
             return createUploadResourceForApp(request);
         } else {
@@ -44,8 +44,8 @@ public final class CreateUploadResourceTask implements AppCenterTask<UploadReque
         }
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> createUploadResourceForApp(@Nonnull UploadRequest request) {
+    @NonNull
+    private CompletableFuture<UploadRequest> createUploadResourceForApp(@NonNull UploadRequest request) {
         log("Creating an upload resource for app.");
 
         final CompletableFuture<UploadRequest> future = new CompletableFuture<>();
@@ -72,8 +72,8 @@ public final class CreateUploadResourceTask implements AppCenterTask<UploadReque
         return future;
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> createUploadResourceForDebugSymbols(@Nonnull UploadRequest request) {
+    @NonNull
+    private CompletableFuture<UploadRequest> createUploadResourceForDebugSymbols(@NonNull UploadRequest request) {
         final SymbolUploadBeginRequest symbolUploadRequest = requireNonNull(request.symbolUploadRequest, "symbolUploadRequest cannot be null");
 
         log("Creating an upload resource for debug symbols.");

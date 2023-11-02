@@ -1,5 +1,6 @@
 package io.jenkins.plugins.appcenter.task.internal;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.model.TaskListener;
 import io.jenkins.plugins.appcenter.AppCenterException;
 import io.jenkins.plugins.appcenter.AppCenterLogger;
@@ -7,7 +8,6 @@ import io.jenkins.plugins.appcenter.api.AppCenterServiceFactory;
 import io.jenkins.plugins.appcenter.task.request.UploadRequest;
 import io.jenkins.plugins.appcenter.util.RemoteFileUtils;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.PrintStream;
@@ -20,30 +20,30 @@ public final class SetMetadataTask implements AppCenterTask<UploadRequest>, AppC
 
     private static final long serialVersionUID = 1L;
 
-    @Nonnull
+    @NonNull
     private final TaskListener taskListener;
-    @Nonnull
+    @NonNull
     private final AppCenterServiceFactory factory;
-    @Nonnull
+    @NonNull
     private final RemoteFileUtils remoteFileUtils;
 
     @Inject
-    SetMetadataTask(@Nonnull final TaskListener taskListener,
-                    @Nonnull final AppCenterServiceFactory factory,
-                    @Nonnull final RemoteFileUtils remoteFileUtils) {
+    SetMetadataTask(@NonNull final TaskListener taskListener,
+                    @NonNull final AppCenterServiceFactory factory,
+                    @NonNull final RemoteFileUtils remoteFileUtils) {
         this.taskListener = taskListener;
         this.factory = factory;
         this.remoteFileUtils = remoteFileUtils;
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public CompletableFuture<UploadRequest> execute(@Nonnull UploadRequest request) {
+    public CompletableFuture<UploadRequest> execute(@NonNull UploadRequest request) {
         return setMetadata(request);
     }
 
-    @Nonnull
-    private CompletableFuture<UploadRequest> setMetadata(@Nonnull UploadRequest request) {
+    @NonNull
+    private CompletableFuture<UploadRequest> setMetadata(@NonNull UploadRequest request) {
         final String uploadDomain = requireNonNull(request.uploadDomain, "uploadDomain cannot be null");
         final String packageAssetId = requireNonNull(request.packageAssetId, "packageAssetId cannot be null");
         final String token = requireNonNull(request.token, "token cannot be null");
@@ -74,8 +74,8 @@ public final class SetMetadataTask implements AppCenterTask<UploadRequest>, AppC
     }
 
 
-    @Nonnull
-    private String getUrl(@Nonnull String pathToApp, @Nonnull String uploadDomain, @Nonnull String packageAssetId, @Nonnull String token) {
+    @NonNull
+    private String getUrl(@NonNull String pathToApp, @NonNull String uploadDomain, @NonNull String packageAssetId, @NonNull String token) {
         final String fileName = remoteFileUtils.getFileName(pathToApp);
         final long fileSize = remoteFileUtils.getFileSize(pathToApp);
         final String contentType = remoteFileUtils.getContentType(pathToApp);

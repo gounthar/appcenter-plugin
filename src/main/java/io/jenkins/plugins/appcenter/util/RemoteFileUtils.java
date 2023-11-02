@@ -1,9 +1,9 @@
 package io.jenkins.plugins.appcenter.util;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.FilePath;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.Serializable;
@@ -12,19 +12,19 @@ public class RemoteFileUtils implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Nonnull
+    @NonNull
     private final FilePath filePath;
 
     @Nullable
     private File file;
 
     @Inject
-    RemoteFileUtils(@Nonnull final FilePath filePath) {
+    RemoteFileUtils(@NonNull final FilePath filePath) {
         this.filePath = filePath;
     }
 
-    @Nonnull
-    public File getRemoteFile(@Nonnull String pathToRemoteFile) {
+    @NonNull
+    public File getRemoteFile(@NonNull String pathToRemoteFile) {
         if (file == null) {
             file = new File(filePath.child(pathToRemoteFile).getRemote());
         }
@@ -32,17 +32,17 @@ public class RemoteFileUtils implements Serializable {
         return file;
     }
 
-    @Nonnull
-    public String getFileName(@Nonnull String pathToRemoveFile) {
+    @NonNull
+    public String getFileName(@NonNull String pathToRemoveFile) {
         return getRemoteFile(pathToRemoveFile).getName();
     }
 
-    public long getFileSize(@Nonnull String pathToRemoveFile) {
+    public long getFileSize(@NonNull String pathToRemoveFile) {
         return getRemoteFile(pathToRemoveFile).length();
     }
 
-    @Nonnull
-    public String getContentType(@Nonnull String pathToApp) {
+    @NonNull
+    public String getContentType(@NonNull String pathToApp) {
         if (pathToApp.endsWith(".apk") || pathToApp.endsWith(".aab")) return "application/vnd.android.package-archive";
         if (pathToApp.endsWith(".msi")) return "application/x-msi";
         if (pathToApp.endsWith(".plist")) return "application/xml";

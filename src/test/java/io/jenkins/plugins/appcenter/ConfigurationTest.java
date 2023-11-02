@@ -1,6 +1,6 @@
 package io.jenkins.plugins.appcenter;
 
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlForm;
 import hudson.model.FreeStyleProject;
 import org.junit.Before;
 import org.junit.ClassRule;

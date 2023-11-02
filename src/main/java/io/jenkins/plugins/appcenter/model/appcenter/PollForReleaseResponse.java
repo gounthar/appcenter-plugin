@@ -1,13 +1,14 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.util.Objects;
 
 public final class PollForReleaseResponse {
-    @Nonnull
+    @NonNull
     public final String id;
-    @Nonnull
+    @NonNull
     public final StatusEnum upload_status;
     @Nullable
     public final String error_details;
@@ -16,8 +17,8 @@ public final class PollForReleaseResponse {
     @Nullable
     public final String release_url;
 
-    public PollForReleaseResponse(@Nonnull String id,
-                                  @Nonnull StatusEnum upload_status,
+    public PollForReleaseResponse(@NonNull String id,
+                                  @NonNull StatusEnum upload_status,
                                   @Nullable String error_details,
                                   @Nullable Integer release_distinct_id,
                                   @Nullable String release_url) {

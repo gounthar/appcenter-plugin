@@ -1,15 +1,16 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.Objects;
 
 public final class UploadedSymbolInfo {
-    @Nonnull
+    @NonNull
     public final String symbol_id;
-    @Nonnull
+    @NonNull
     public final String platform;
 
-    public UploadedSymbolInfo(@Nonnull String symbolId, @Nonnull String platform) {
+    public UploadedSymbolInfo(@NonNull String symbolId, @NonNull String platform) {
         this.symbol_id = symbolId;
         this.platform = platform;
     }

@@ -1,13 +1,14 @@
 package io.jenkins.plugins.appcenter.model.appcenter;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.Objects;
 
 public final class Failure {
-    @Nonnull
+    @NonNull
     public final String message;
 
-    public Failure(@Nonnull String message) {
+    public Failure(@NonNull String message) {
         this.message = message;
     }
 

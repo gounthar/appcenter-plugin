@@ -1,5 +1,6 @@
 package io.jenkins.plugins.appcenter;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;
@@ -36,8 +37,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.QueryParameter;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.io.IOException;
 import java.io.PrintStream;
 
@@ -47,19 +47,19 @@ import static hudson.model.Result.SUCCESS;
 @SuppressWarnings("unused")
 public final class AppCenterRecorder extends Recorder implements SimpleBuildStep {
 
-    @Nonnull
+    @NonNull
     private final Secret apiToken;
 
-    @Nonnull
+    @NonNull
     private final String ownerName;
 
-    @Nonnull
+    @NonNull
     private final String appName;
 
-    @Nonnull
+    @NonNull
     private final String pathToApp;
 
-    @Nonnull
+    @NonNull
     private final String distributionGroups;
 
     @Nullable
@@ -96,32 +96,32 @@ public final class AppCenterRecorder extends Recorder implements SimpleBuildStep
         this.distributionGroups = Util.fixNull(distributionGroups);
     }
 
-    @Nonnull
+    @NonNull
     public Secret getApiToken() {
         return apiToken;
     }
 
-    @Nonnull
+    @NonNull
     public String getOwnerName() {
         return ownerName;
     }
 
-    @Nonnull
+    @NonNull
     public String getAppName() {
         return appName;
     }
 
-    @Nonnull
+    @NonNull
     public String getPathToApp() {
         return pathToApp;
     }
 
-    @Nonnull
+    @NonNull
     public String getDistributionGroups() {
         return distributionGroups;
     }
 
-    @Nonnull
+    @NonNull
     public String getReleaseNotes() {
         return Util.fixNull(releaseNotes);
     }
@@ -134,27 +134,27 @@ public final class AppCenterRecorder extends Recorder implements SimpleBuildStep
         return mandatoryUpdate;
     }
 
-    @Nonnull
+    @NonNull
     public String getBuildVersion() {
         return Util.fixNull(buildVersion);
     }
 
-    @Nonnull
+    @NonNull
     public String getPathToDebugSymbols() {
         return Util.fixNull(pathToDebugSymbols);
     }
 
-    @Nonnull
+    @NonNull
     public String getPathToReleaseNotes() {
         return Util.fixNull(pathToReleaseNotes);
     }
 
-    @Nonnull
+    @NonNull
     public String getBranchName() {
         return Util.fixNull(branchName);
     }
 
-    @Nonnull
+    @NonNull
     public String getCommitHash() {
         return Util.fixNull(commitHash);
     }
@@ -203,7 +203,7 @@ public final class AppCenterRecorder extends Recorder implements SimpleBuildStep
     }
 
     @Override
-    public void perform(@Nonnull Run<?, ?> run, @Nonnull FilePath filePath, @Nonnull Launcher launcher, @Nonnull TaskListener taskListener) throws InterruptedException, IOException {
+    public void perform(@NonNull Run<?, ?> run, @NonNull FilePath filePath, @NonNull Launcher launcher, @NonNull TaskListener taskListener) throws InterruptedException, IOException {
         final Result buildResult = run.getResult();
         if (buildResult != null && buildResult.isWorseOrEqualTo(FAILURE)) {
             taskListener.getLogger().println(Messages.AppCenterRecorder_DescriptorImpl_errors_upstreamBuildFailure());
@@ -412,7 +412,7 @@ public final class AppCenterRecorder extends Recorder implements SimpleBuildStep
             return true;
         }
 
-        @Nonnull
+        @NonNull
         @Override
         public String getDisplayName() {
             return Messages.AppCenterRecorder_DescriptorImpl_DisplayName();

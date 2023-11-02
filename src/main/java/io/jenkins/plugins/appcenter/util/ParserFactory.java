@@ -1,6 +1,7 @@
 package io.jenkins.plugins.appcenter.util;
 
-import javax.annotation.Nonnull;
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import javax.inject.Inject;
 import java.io.File;
 import java.io.Serializable;
@@ -13,8 +14,8 @@ public final class ParserFactory implements Serializable {
     ParserFactory() {
     }
 
-    @Nonnull
-    public AndroidParser androidParser(final @Nonnull File file) {
+    @NonNull
+    public AndroidParser androidParser(final @NonNull File file) {
         return new AndroidParser(file);
     }
 }
